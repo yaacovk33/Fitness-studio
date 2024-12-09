@@ -5,7 +5,7 @@ import gym.management.Sessions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-//123
+
 public class Main {
     public static void main(String[] args) throws InstructorNotQualifiedException, DuplicateClientException, InvalidAgeException, ClientNotRegisteredException {
         Person p1 = new Person("David", 500, Gender.Male, "20-02-1978");
