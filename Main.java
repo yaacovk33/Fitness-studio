@@ -1,3 +1,10 @@
+import Exceptions.ClientNotRegisteredException;
+import Exceptions.DuplicateClientException;
+import Exceptions.InstructorNotQualifiedException;
+import Exceptions.InvalidAgeException;
+import Type.ForumType;
+import Type.Gender;
+import Type.SessionType;
 import gym.Exception.*;
 import gym.customers.*;
 import gym.management.*;
@@ -22,7 +29,6 @@ public class Main {
         Gym gym = Gym.getInstance();
         gym.setName("CrossFit");
         gym.setSecretary(p1, 9000);
-
         Secretary gymSecretary = gym.getSecretary();
 
         Client c1 = gymSecretary.registerClient(p2);
@@ -54,6 +60,8 @@ public class Main {
         }
 
         c2 = gymSecretary.registerClient(p3);
+
+
 
         Instructor i1 = gymSecretary.hireInstructor(p4, 70, new ArrayList<>(Arrays.asList(SessionType.ThaiBoxing, SessionType.MachinePilates)));
         Instructor i2 = gymSecretary.hireInstructor(p5, 90, new ArrayList<>(Arrays.asList(SessionType.ThaiBoxing, SessionType.Pilates, SessionType.MachinePilates)));
