@@ -1,18 +1,17 @@
-import Exceptions.ClientNotRegisteredException;
-import Exceptions.DuplicateClientException;
-import Exceptions.InstructorNotQualifiedException;
-import Exceptions.InvalidAgeException;
+import gym.Exception.ClientNotRegisteredException;
+import gym.Exception.DuplicateClientException;
+import gym.Exception.InstructorNotQualifiedException;
+import gym.Exception.InvalidAgeException;
 import Type.ForumType;
 import Type.Gender;
 import Type.SessionType;
-import gym.Exception.*;
 import gym.customers.*;
 import gym.management.*;
 import gym.management.Sessions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-//134
+
 public class Main {
     public static void main(String[] args) throws InstructorNotQualifiedException, DuplicateClientException, InvalidAgeException, ClientNotRegisteredException {
         Person p1 = new Person("David", 500, Gender.Male, "20-02-1978");

@@ -2,14 +2,19 @@ public class Gym {
     private String name;
     private static Gym instance;
     private Secretary secretary;
+    private int balance;
+    //private List<Action> actions;
 
-    private Gym(){
+    private Gym(String name, Secretary secretary, int balance) {
+        this.name = name;
+        this.secretary = secretary;
+        this.balance = balance;
     }
 
 
-    public static Gym getInstance() {
+    public static Gym getInstance(String name, Secretary secretary, int balance) {
         if (instance == null) {
-            instance = new Gym();
+            instance = new Gym(name,secretary,balance);
         }
         return instance;
     }
@@ -26,5 +31,33 @@ public class Gym {
 
     public Secretary getSecretary() {
         return secretary;
+    }
+    public int getBalance() {return balance;}
+
+    public void setBalance(int balance) {this.balance = balance;}
+
+    public void permissionsToSecretary() {}
+
+    public void getSubscriptions(){}
+
+    public void addClients(){}
+
+    public void removeClients(){}
+
+    public void getInstructor(){}
+
+    public void addActions(){}
+
+    public void getActions(){}
+
+    public void getSessions(){}
+
+    public void addSessions(){}
+
+    public String toString() {
+        return "---Gym Information---\n" +
+                "Gym Name: " + name + "\n" +
+                "Gym Secretary: " + secretary.toString() + "\n" +
+                "Gym Balance: " + balance;
     }
 }
