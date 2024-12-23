@@ -1,13 +1,12 @@
+import Type.SessionType;
 import gym.Exception.ClientNotRegisteredException;
 import gym.Exception.DuplicateClientException;
 import gym.Exception.InstructorNotQualifiedException;
 import gym.Exception.InvalidAgeException;
 import Type.ForumType;
 import Type.Gender;
-import Type.SessionType;
-import gym.customers.*;
-import gym.management.*;
-import gym.management.Sessions.*;
+import Sessions.Session;
+import gym.management.gym.Sessions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

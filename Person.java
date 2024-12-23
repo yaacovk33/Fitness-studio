@@ -30,6 +30,15 @@ public class Person {
         this.age = age;
     }
 
+    public void setPerson(Person person) {
+        this.name = person.name;
+        this.balance = person.balance;
+        this.gender = person.gender;
+        this.birthday = person.birthday;
+        this.id = person.id;
+        this.age = age;
+    }
+
 
     public String getName() {
         return name;

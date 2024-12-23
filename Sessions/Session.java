@@ -1,11 +1,17 @@
+package Sessions;
+
 import Type.ForumType;
-import Type.SessionType;
+import Client;
+import Instructor;
+
+import java.util.ArrayList;
 
 public class Session {
     private String date;
     private SessionType type;
     private ForumType forumType;
     private Instructor instructor;
+    private ArrayList<Client> participants;
     private int currentParticipants;
     private int maxParticipants;
 
@@ -16,6 +22,7 @@ public class Session {
         this.instructor = instructor;
         this.currentParticipants = 0;
         this.maxParticipants = maxParticipants;
+        this.participants = new ArrayList<>();
 
     }
 
@@ -30,6 +37,7 @@ public class Session {
     public ForumType getForumType() {
         return forumType;
     }
+
     public Instructor getInstructor() {
         return instructor;
     }
@@ -42,23 +50,28 @@ public class Session {
         return maxParticipants;
     }
 
-    public void addParticipant() {
+    public boolean addParticipant(Client client) {
         if (currentParticipants < maxParticipants) {
+            participants.add(client);
             currentParticipants++;
         } else {
             System.out.println("Failed registration: No available spots for session");
+            return false;
 
         }
+        return true;
+    }
+
+    public ArrayList<Client> getParticipants() {
+        return participants;
     }
     @Override
     public String toString() {
         return "Sessions Data:\n" +
-                "Session Type: " + type +
+                "Sessions.Session Type: " + type +
                 " | Date: " + date +
                 " | Forum: " + forumType +
                 " | Instructor: " + (instructor != null ? instructor.getName() : "None") +
                 " | Participants: " + currentParticipants + "/" + maxParticipants;
-
-
     }
 }

@@ -1,5 +1,3 @@
-import Type.Gender;
-
 import java.util.ArrayList;
 
 public class Client extends Person {
@@ -18,7 +16,7 @@ public class Client extends Person {
         return String.join("\n", notifs);
 
     }
-    public update(String msg){
+    public  void update(String msg){
         notifs.add(msg);
 
     }

@@ -5,16 +5,16 @@ public class Gym {
     private int balance;
     //private List<Action> actions;
 
-    private Gym(String name, Secretary secretary, int balance) {
-        this.name = name;
-        this.secretary = secretary;
-        this.balance = balance;
+    private Gym() {
+        this.name = "";
+        this.secretary = null;
+        //this.balance = balance;
     }
 
 
-    public static Gym getInstance(String name, Secretary secretary, int balance) {
+    public static Gym getInstance() {
         if (instance == null) {
-            instance = new Gym(name,secretary,balance);
+            instance = new Gym();
         }
         return instance;
     }
@@ -26,11 +26,12 @@ public class Gym {
     }
 
     public void setSecretary(Person person, int salary) {
-        this.secretary = new Secretary(person.getName(), person.getBalance(), person.getGender(), person.getBirthday(), salary);
+        this.secretary.getInstance().setPerson(person);
+        this.secretary.getInstance().setSalary(salary);
     }
 
     public Secretary getSecretary() {
-        return secretary;
+        return secretary.getInstance();
     }
     public int getBalance() {return balance;}
 
@@ -54,10 +55,12 @@ public class Gym {
 
     public void addSessions(){}
 
-    public String toString() {
+   /* public String toString() {
         return "---Gym Information---\n" +
                 "Gym Name: " + name + "\n" +
                 "Gym Secretary: " + secretary.toString() + "\n" +
                 "Gym Balance: " + balance;
     }
+
+    */
 }

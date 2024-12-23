@@ -1,7 +1,7 @@
-import Type.SessionType;
+import Sessions.Session;
+import Sessions.SessionType;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Instructor extends Person {
     private int salary;
@@ -12,13 +12,14 @@ public class Instructor extends Person {
     private int sessionCount;
 
 
-    public Instructor(Person person, int salary, ArrayList<SessionType> sessionType,int id) {
+    public Instructor(Person person, int salary, ArrayList<SessionType> sessionType, int id) {
         super(person);
         this.salary = salary;
         this.sessionType = sessionType;
         this.id = id;
         this.sessionCount= 0;
-        instructors= new ArrayList<>();
+        //instructors= new ArrayList<>();
+        instructors.add(this);
     }
 
     public int getSalary() {
@@ -36,11 +37,13 @@ public class Instructor extends Person {
     public ArrayList<SessionType> getSessionType() {
         return sessionType;
     }
-    public ArrayList<Instructor> getInstructors() {
+
+    public static ArrayList<Instructor> getInstructors() {
         return instructors;
     }
-    public void setInstructors(ArrayList<Instructor> instructors) {
-        this.instructors = instructors;
+
+    public static void setInstructors(ArrayList<Instructor> instructorsList) {
+        instructors = instructorsList;
     }
 
     public void addSessionCount(SessionType session) {
@@ -54,6 +57,7 @@ public class Instructor extends Person {
     public void resetSessionCount() {
         sessionCount = 0;
     }
+
     public int getSessionCount() {
         return sessionCount;
     }
@@ -65,11 +69,17 @@ public class Instructor extends Person {
                 " | Name: " + getName() +
                 " | Gender: " + getGender() +
                 " | Birthday: " + getBirthday() +
-                " | Age: " +
+                " | Age: " + calculateAge(getBirthday()) +
                 " | Balance: " +getBalance() +
-                " | Role: " +
-                " | Salary per hour: " + getSalary()+
-                " | Certified classes: " + getSessionType();
+                " | Role: Instructor" +
+                " | Salary per hour: " + salary+
+                " | Certified classes: " + sessionType;
 
+    }
+    public boolean isQualified(SessionType sessionType) {
+        if (sessionType == null) {
+            return false;
+        }
+        return this.sessionType.contains(sessionType);
     }
 }
