@@ -1,14 +1,17 @@
 package gym;
 
-import Type.SessionType;
 import gym.Exception.ClientNotRegisteredException;
 import gym.Exception.DuplicateClientException;
 import gym.Exception.InstructorNotQualifiedException;
 import gym.Exception.InvalidAgeException;
-import Type.ForumType;
+import gym.customers.Client;
 import gym.customers.Gender;
 import gym.management.Gym;
 import gym.management.Secretary;
+import gym.management.Sessions.ForumType;
+import gym.management.Sessions.Instructor;
+import gym.management.Sessions.Session;
+import gym.management.Sessions.SessionType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +32,7 @@ public class Main {
         Gym gym = Gym.getInstance();
         gym.setName("CrossFit");
         gym.setSecretary(p1, 9000);
-        Secretary gymSecretary = gym.getSecretary();
+        Secretary gymSecretary = gym.getGymSecretary();
 
         Client c1 = gymSecretary.registerClient(p2);
         Client c2 = gymSecretary.registerClient(p3);
@@ -116,7 +119,7 @@ public class Main {
         gymSecretary.paySalaries();
 
         gym.setSecretary(p3,8000);
-        Secretary newGymSecretary = gym.getSecretary();
+        Secretary newGymSecretary = gym.getGymSecretary();
 
         try{
             gymSecretary.registerClientToLesson(c1, s1);

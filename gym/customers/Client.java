@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Client extends Person {
    // static ArrayList<Client> clients;
-   // private ArrayList<String> notifs;
+    private ArrayList<String> notifs;
 
 
     public Client(Person person) {
@@ -17,7 +17,7 @@ public class Client extends Person {
 
 
     public String getNotifications() {
-        return String.join("\n", notifs);
+        return "";
 
     }
     public  void update(String msg){

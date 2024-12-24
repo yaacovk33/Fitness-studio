@@ -28,20 +28,41 @@ public class Session {
         return type;
     }
 
+    public void setType(SessionType type) {
+        this.type = type;
+    }
+
     public String getDate(){
         return date;
+    }
+
+    public void setDate(String date){
+         this.date = date;
     }
 
     public ForumType getForumType() {
         return forumType;
     }
 
+    public void setForumType(ForumType forumType) {
+         this.forumType = forumType;
+    }
+
+
     public Instructor getInstructor() {
         return instructor;
     }
 
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
+    }
+
     public int getCurrentParticipants() {
         return currentParticipants;
+    }
+
+    public void setCurrentParticipants(int currentParticipants) {
+        this.currentParticipants = currentParticipants;
     }
 
     public int getMaxParticipants() {
@@ -55,20 +76,29 @@ public class Session {
         } else {
             System.out.println("Failed registration: No available spots for session");
             return false;
-
         }
         return true;
     }
-    public void update(String massage){
-        for (Client c:participants){
-            c.update(massage);
+
+    public boolean removeParticipant(gym.customers.Client client) {
+        if (participants.contains(client)) {
+            participants.remove(client);
+            currentParticipants--;
+            return true;
         }
+        return false;
     }
 
+    public void update(String msg){
+        for (Client c:participants){
+            c.update(msg);
+        }
+    }
 
     public ArrayList<Client> getParticipants() {
         return participants;
     }
+
     @Override
     public String toString() {
         return "gym.management.Sessions Data:\n" +

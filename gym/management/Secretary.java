@@ -1,30 +1,31 @@
 package gym.management;
 
-import Type.ForumType;
+import gym.Exception.*;
+import gym.customers.Client;
 import gym.customers.Gender;
-import Type.SessionType;
-import gym.Exception.ClientNotRegisteredException;
-import gym.Exception.DuplicateClientException;
-import gym.Exception.InstructorNotQualifiedException;
-import gym.Exception.InvalidAgeException;
-
+import gym.Person;
+import gym.management.Sessions.*;
 import java.util.ArrayList;
+
+
 
 public class Secretary extends Person {
     private int salary;
+    private Gym gym;
 
 
-    public Secretary(String name, int balance, Gender gender, String birthday, int salary) {
+    public Secretary(String name, int balance, Gender gender, String birthday, int salary, Gym gym) {
         super(name, balance, gender, birthday);
         this.salary = salary;
+        this.gym= gym;
     }
-    public void changeSecretary(String name, int balance, Gender gender, String birthday, int salary){
-        this.setName(name);
-        this.setBalance(balance);
-        this.setGender(gender);
-        this.setBirthday(birthday);
-        this.setSalary(salary);
-    }
+  //  public void changeSecretary(String name, int balance, Gender gender, String birthday, int salary){
+  //      this.setName(name);
+  //      this.setBalance(balance);
+  //      this.setGender(gender);
+  //      this.setBirthday(birthday);
+  //      this.setSalary(salary);
+  //  }
 
     public int getSalary() {
         return salary;
@@ -40,23 +41,21 @@ public class Secretary extends Person {
         if (age < 18 ) {
             throw new InvalidAgeException(age);
         }
-
-        // Check for duplicate client by comparing name or other unique identifiers
-        for (Client existingClient : Client.clients) {
-            if (existingClient.getId() == person.getId()) {
-                throw new DuplicateClientException();
-            }
+        if(gym.containsClient(person)){
+            gym.addActions(DuplicateClientException.getMsg());
+            throw new DuplicateClientException();
         }
+
         Client client = new Client(person);
-        Client.clients.add(client);
+        gym.addClients(client);
         System.out.println("Registered new client: " + client.getName());
         return client;
     }
     public void unregisterClient(Client client) throws ClientNotRegisteredException {
-        if (!Client.clients.contains(client)) {
+        if (!gym.getClients().contains(client)) {
             throw new ClientNotRegisteredException("unregister");
         } else {
-            Client.clients.remove(client);
+            gym.getClients().remove(client);
             System.out.println("Unregistered client: " + client.getName());
         }
     }
@@ -66,17 +65,30 @@ public class Secretary extends Person {
             throw new InstructorNotQualifiedException();
         }
         Instructor instructor = new Instructor(person, salary, sessionType, getId());
-        Instructor.instructors.add(instructor);
+        gym.getInstructors().add(instructor);
         System.out.println("Hired new instructor: " + instructor.getName() + "with salary per hour: " + instructor.getSalary());
         return instructor;
     }
-    public Session addSession(SessionType sessionType, String date, ForumType forumType, Instructor instructor) throws InstructorNotQualifiedException {
+    public Session addSession(gym.management.Sessions.SessionType sessionType, String date, ForumType forumType, Instructor instructor) throws InstructorNotQualifiedException {
+    /*    try {
+            Session newSession = SessionFactory.createSession(sessionType, date, forumType, instructor);
+            gym.addSessions(newSession);
+
+            gym.addActions("Created new session: " + sessionType + " on " + getDate() + " with instructor:  " + instructor);
+            return newSession;
+        } catch (InstructorNotQualifiedException e) {
+            throw new InstructorNotQualifiedException();
+        }
+    }
+
+     */
+
         if (!instructor.isQualified(sessionType)){
             throw new InstructorNotQualifiedException();
         } else {
             Session session = new Session( sessionType, date, forumType, instructor);
 
-            System.out.println("Created new session: " + sessionType + " on " + getDate() + " with instructor:  " + instructor);
+            System.out.println("Created new session: " + sessionType + " on " + session.getDate() + " with instructor:  " + instructor);
         }
     }
 
@@ -88,7 +100,7 @@ public class Secretary extends Person {
         if (age < 65 && session.getForumType() == ForumType.Seniors) {
             throw new InvalidAgeException(age);
         }
-        if (!Client.clients.contains(client)){
+        if (!gym.getClients().contains(client)){
             throw new ClientNotRegisteredException("not in client list");
         }
 

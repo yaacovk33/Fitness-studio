@@ -11,4 +11,5 @@ public class SessionFactory {
         return new Session(type, date, forum, instructor);
 
     }
+
 }

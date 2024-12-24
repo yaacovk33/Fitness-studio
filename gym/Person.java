@@ -81,10 +81,12 @@ public class Person {
     public void setId(int id) {
         this.id = id;
     }
-    //public int getAge(){return age;}
-    //public void setAge(int age){this.age = age;}
 
-    int calculateAge(String birthday) {
+    public int getAge(){return calculateAge(birthday);}
+
+    public void setAge(int age){this.age = age;}
+
+    protected int calculateAge(String birthday) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate birthDate = LocalDate.parse(birthday, formatter);
@@ -103,11 +105,13 @@ public class Person {
         return age;
     }
 
-    public void checkAge(int age) {
+   /* public void checkAge(int age) {
         if (age < 18) {
             throw new IllegalArgumentException("Age must be greater than 18");
         }
 
     }
+
+    */
 
 }
