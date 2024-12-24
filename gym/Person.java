@@ -1,4 +1,6 @@
-import Type.Gender;
+package gym;
+
+import gym.customers.Gender;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

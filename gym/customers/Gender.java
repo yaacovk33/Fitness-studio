@@ -1,4 +1,4 @@
-package Type;
+package gym.customers;
 
 public enum Gender {
     Male,

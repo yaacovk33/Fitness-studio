@@ -1,22 +1,29 @@
-import Sessions.Session;
+package gym.management;
+
 import Type.ForumType;
-import Type.Gender;
+import gym.customers.Gender;
 import Type.SessionType;
 import gym.Exception.ClientNotRegisteredException;
 import gym.Exception.DuplicateClientException;
 import gym.Exception.InstructorNotQualifiedException;
 import gym.Exception.InvalidAgeException;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
-public class Secretary2 extends Person {
+public class Secretary extends Person {
     private int salary;
-    private Person person;
+
 
     public Secretary(String name, int balance, Gender gender, String birthday, int salary) {
         super(name, balance, gender, birthday);
         this.salary = salary;
+    }
+    public void changeSecretary(String name, int balance, Gender gender, String birthday, int salary){
+        this.setName(name);
+        this.setBalance(balance);
+        this.setGender(gender);
+        this.setBirthday(birthday);
+        this.setSalary(salary);
     }
 
     public int getSalary() {
@@ -89,7 +96,7 @@ public class Secretary2 extends Person {
             System.out.println("Failed registration: No available spots for session");
         }
         session.addParticipant(client);
-        System.out.println("Client " + client.getName() + " has been successfully registered to the session: " + session.getType());
+        System.out.println("gym.customers.Client " + client.getName() + " has been successfully registered to the session: " + session.getType());
         System.out.println("Registered client: " + client.getName() + " to session: " + session.getType() +" on " + session.getDate() + " for price: " + getPrice());
     }
 

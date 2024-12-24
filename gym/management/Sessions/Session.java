@@ -1,25 +1,23 @@
-package Sessions;
+package gym.management.Sessions;
 
-import Type.ForumType;
-import Client;
-import Instructor;
+import gym.customers.Client;
 
 import java.util.ArrayList;
 
 public class Session {
     private String date;
     private SessionType type;
-    private ForumType forumType;
     private Instructor instructor;
+    private ForumType forumType;
     private ArrayList<Client> participants;
     private int currentParticipants;
     private int maxParticipants;
 
-    public Session(SessionType type, String date, ForumType forumType, Instructor instructor){
+    public Session(SessionType type, String date,ForumType forumType ,Instructor instructor){
         this.type = type;
         this.date = date;
-        this.forumType = forumType;
         this.instructor = instructor;
+        this.forumType=forumType;
         this.currentParticipants = 0;
         this.maxParticipants = maxParticipants;
         this.participants = new ArrayList<>();
@@ -61,14 +59,20 @@ public class Session {
         }
         return true;
     }
+    public void update(String massage){
+        for (Client c:participants){
+            c.update(massage);
+        }
+    }
+
 
     public ArrayList<Client> getParticipants() {
         return participants;
     }
     @Override
     public String toString() {
-        return "Sessions Data:\n" +
-                "Sessions.Session Type: " + type +
+        return "gym.management.Sessions Data:\n" +
+                "gym.management.Sessions.Session Type: " + type +
                 " | Date: " + date +
                 " | Forum: " + forumType +
                 " | Instructor: " + (instructor != null ? instructor.getName() : "None") +

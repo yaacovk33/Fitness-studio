@@ -1,14 +1,18 @@
+package gym.customers;
+
+import gym.Person;
+
 import java.util.ArrayList;
 
 public class Client extends Person {
-    static ArrayList<Client> clients;
-    private ArrayList<String> notifs;
+   // static ArrayList<Client> clients;
+   // private ArrayList<String> notifs;
 
 
     public Client(Person person) {
-        super(person);
-        clients = new ArrayList<>();
-        this.notifs = new ArrayList<>();
+        super(person.getName(), person.getBalance(), person.getGender(), person.getBirthday());
+        //clients = new ArrayList<>();
+        //this.notifs = new ArrayList<>();
     }
 
 

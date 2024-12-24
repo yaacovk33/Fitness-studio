@@ -1,8 +1,13 @@
+package gym.management;
+
+import java.util.ArrayList;
+
 public class Gym {
     private String name;
     private static Gym instance;
     private Secretary secretary;
     private int balance;
+    static ArrayList<Client> clients;
     //private List<Action> actions;
 
     private Gym() {
@@ -56,10 +61,10 @@ public class Gym {
     public void addSessions(){}
 
    /* public String toString() {
-        return "---Gym Information---\n" +
-                "Gym Name: " + name + "\n" +
-                "Gym Secretary: " + secretary.toString() + "\n" +
-                "Gym Balance: " + balance;
+        return "---gym.management.Gym Information---\n" +
+                "gym.management.Gym Name: " + name + "\n" +
+                "gym.management.Gym gym.management.Secretary: " + secretary.toString() + "\n" +
+                "gym.management.Gym Balance: " + balance;
     }
 
     */

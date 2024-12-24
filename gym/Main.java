@@ -1,12 +1,14 @@
+package gym;
+
 import Type.SessionType;
 import gym.Exception.ClientNotRegisteredException;
 import gym.Exception.DuplicateClientException;
 import gym.Exception.InstructorNotQualifiedException;
 import gym.Exception.InvalidAgeException;
 import Type.ForumType;
-import Type.Gender;
-import Sessions.Session;
-import gym.management.gym.Sessions.*;
+import gym.customers.Gender;
+import gym.management.Gym;
+import gym.management.Secretary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -128,7 +130,7 @@ public class Main {
 
         System.out.println("\n" + c1.getName() + " Notifications: " + c1.getNotifications());
 
-        System.out.println("\n---Gym information---");
+        System.out.println("\n---gym.management.Gym information---");
 
         System.out.print(gym);
     }

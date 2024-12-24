@@ -1,5 +1,5 @@
-import Sessions.Session;
-import Sessions.SessionType;
+package gym.management.Sessions;
+import gym.Person;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ public class Instructor extends Person {
     private int salary;
     private ArrayList<SessionType> sessionType;
     static ArrayList<Instructor> instructors;
-    //private Person person;
+    //private gym.Person person;
     private int id;
     private int sessionCount;
 

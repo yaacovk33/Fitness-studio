@@ -1,7 +1,6 @@
-package Sessions;
+package gym.management;
 
 import Type.ForumType;
-import Instructor;
 
 import java.util.ArrayList;
 
@@ -11,7 +10,7 @@ public class SessionType {
     private String event;
    //private Instructor instructor;
     private ForumType forumType;
-   //private ArrayList<Client> participants;
+   //private ArrayList<gym.customers.Client> participants;
    //private int currentParticipants;
     private int maxParticipants;
     private ArrayList<SessionType> sessionTypes;
@@ -57,10 +56,10 @@ public class SessionType {
     public void setForumType(ForumType forumType) {
         this.forumType = forumType;
     }
-    //public ArrayList<Client> getParticipants() {
+    //public ArrayList<gym.customers.Client> getParticipants() {
     //  return participants;
     //}
-    //public void setParticipants(ArrayList<Client> participants) {
+    //public void setParticipants(ArrayList<gym.customers.Client> participants) {
     //  this.participants = participants;
     //}
     //public int getCurrentParticipants() {
@@ -75,7 +74,7 @@ public class SessionType {
     public void setMaxParticipants(int maxParticipants) {
         this.maxParticipants = maxParticipants;
     }
-   /* public boolean addParticipant(Client client) {
+   /* public boolean addParticipant(gym.customers.Client client) {
         if (currentParticipants < maxParticipants) {
             participants.add(client);
             currentParticipants++;
@@ -86,7 +85,7 @@ public class SessionType {
         }
         return true;
     }
-    public boolean removeParticipant(Client client) {
+    public boolean removeParticipant(gym.customers.Client client) {
         if (participants.contains(client)) {
             participants.remove(client);
             currentParticipants--;
@@ -97,8 +96,8 @@ public class SessionType {
 
     @Override
     public String toString() {
-        return "Sessions Data:\n" +
-                "Sessions.Session Type: " + name +
+        return "gym.management.gym.management.Sessions Data:\n" +
+                "gym.management.Session Type: " + name +
                 " | Date: " + event +
                 " | Forum: " + forumType +
                 " | Instructor: " + (instructor != null ? instructor.getName() : "None") +
