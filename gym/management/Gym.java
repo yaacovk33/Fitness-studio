@@ -17,10 +17,10 @@ public class Gym implements Notifier {
     private static Gym instance;
     private Secretary gymSecretary;
     private int balance;
-    private List<Client> clients = new ArrayList<>();
+    private static List<Client> clients = new ArrayList<>();
     private List<Instructor> instructors = new ArrayList<>();
     private List<Session> sessions = new ArrayList<>();
-    private List<String> actions = new ArrayList<>();
+    protected List<String> actions = new ArrayList<>();
 
     private Gym() {
         this.name = "";
@@ -50,8 +50,8 @@ public class Gym implements Notifier {
         }
         gymSecretary = new Secretary(person.getName(), person.getBalance(), person.getGender(), person.getBirthday(), salary, this);
         balance -= salary;
-        actions.add("Appointed new gymSecretary: " + gymSecretary.getName());
-        System.out.println("New gymSecretary appointed: " + gymSecretary.getName());
+        actions.add("A new secretary has started working at the gym: " + gymSecretary.getName());
+        //System.out.println("A new secretary has started working at the gym: " + gymSecretary.getName());
     }
 
     public Secretary getGymSecretary() {
@@ -71,7 +71,7 @@ public class Gym implements Notifier {
     }
 
     public void setClients(List<Client> clients) {
-        this.clients = clients;
+        Gym.clients = clients;
     }
 
     public List<Instructor> getInstructors() {
@@ -82,31 +82,44 @@ public class Gym implements Notifier {
         this.instructors = instructors;
     }
 
+    public List <Session> getSessions() {
+        return sessions;
+    }
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
+
     public void permissionsToSecretary() {
     }
 
     public void getSubscriptions() {
+        if (Secretary.)
     }
 
     public void addClients(Client c) {
         clients.add(c);
     }
 
-    public void removeClients() {
+    public void removeClients(Client c) {
+        clients.remove(c);
     }
 
-    public void getInstructor() {
-    }
+    //public void getInstructor() {
+  //  }
 
     public void addActions(String s) {
         actions.add(s);
     }
 
-    public void getActions() {
+    public void getActions(List<String> actions) {
+        this.actions = actions;
     }
 
-    public void getSessions() {
-    }
+    //public void getSessions() {
+    //    this.sessions = sessions;
+   // }
+
+
 
     public void addSessions(Session newSession) {
         sessions.add(newSession);
@@ -140,7 +153,7 @@ public class Gym implements Notifier {
         }
     }
 
-    public boolean containsClient(Person client) {
+    public static boolean containsClient(Person client) {
         for (Client c : clients) {
             if (c.getId() == (client.getId())) {
                 return true;
@@ -189,4 +202,6 @@ public class Gym implements Notifier {
                 "gym.management.Gym gym.management.Secretary: " + gymSecretary.toString() + "\n" +
                 "gym.management.Gym Balance: " + balance;
     }
+
+
 }

@@ -8,10 +8,7 @@ import gym.customers.Client;
 import gym.customers.Gender;
 import gym.management.Gym;
 import gym.management.Secretary;
-import gym.management.Sessions.ForumType;
-import gym.management.Sessions.Instructor;
-import gym.management.Sessions.Session;
-import gym.management.Sessions.SessionType;
+import gym.management.Sessions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

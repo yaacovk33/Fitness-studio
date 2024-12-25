@@ -12,7 +12,7 @@ public class Instructor extends Person {
     private int sessionCount;
 
 
-    public Instructor(Person person, int salary, ArrayList<SessionType> sessionType, int id) {
+    public Instructor(Person person, int salary, ArrayList<SessionType> sessionType) {
         super(person);
         this.salary = salary;
         this.sessionType = sessionType;
@@ -76,7 +76,7 @@ public class Instructor extends Person {
                 " | Certified classes: " + sessionType;
 
     }
-    public boolean isQualified(SessionType sessionType) {
+    public boolean isQualified(SessionType2 sessionType) {
         if (sessionType == null) {
             return false;
         }

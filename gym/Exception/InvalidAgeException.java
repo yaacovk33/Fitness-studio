@@ -2,7 +2,11 @@ package gym.Exception;
 
 public class InvalidAgeException extends Exception {
     private static final String DEFAULT_MESSAGE = "Error: gym.customers.Client must be at least 18 years old to register";
-    private static final String DEFAULT_MESSAGE_older = "Failed registration: gym.customers.Client doesn't meet the age requirements for this session (Seniors)";
+    public InvalidAgeException() {
+        super(DEFAULT_MESSAGE);
+    }
+
+   /* private static final String DEFAULT_MESSAGE_older = "Failed registration: gym.customers.Client doesn't meet the age requirements for this session (Seniors)";
     public InvalidAgeException(int age) {
         super(chooseMessage(age));
 
@@ -15,4 +19,6 @@ public class InvalidAgeException extends Exception {
             return DEFAULT_MESSAGE_older;
         }
     }
+
+    */
 }

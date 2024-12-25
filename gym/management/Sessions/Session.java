@@ -6,14 +6,14 @@ import java.util.ArrayList;
 
 public class Session {
     private String date;
-    private SessionType type;
+    private SessionType2 type;
     private Instructor instructor;
     private ForumType forumType;
     private ArrayList<Client> participants;
     private int currentParticipants;
     private int maxParticipants;
 
-    public Session(SessionType type, String date,ForumType forumType ,Instructor instructor){
+    public Session(SessionType2 type, String date,ForumType forumType ,Instructor instructor){
         this.type = type;
         this.date = date;
         this.instructor = instructor;
@@ -24,11 +24,12 @@ public class Session {
 
     }
 
-    public SessionType getType() {
+
+    public SessionType2 getType() {
         return type;
     }
 
-    public void setType(SessionType type) {
+    public void setType(SessionType2 type) {
         this.type = type;
     }
 

@@ -23,7 +23,7 @@ public class SessionType2 {
         this.name = name;
     }
 
-    public int getPrice() {
+    public static int getPrice() {
         return price;
     }
 
