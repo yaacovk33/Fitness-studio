@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Secretary extends Person {
     private int salary;
     private Gym gym;
-    //private List<String> actions = new ArrayList<>();
+
 
 
     public Secretary(String name, int balance, Gender gender, String birthday, int salary, Gym gym) {
@@ -33,10 +33,12 @@ public class Secretary extends Person {
     public Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
         int age = calculateAge(person.getBirthday());
         if (age < 18) {
+            gym.addErrors("Error: gym.customers.Client must be at least 18 years old to register");
             throw new InvalidAgeException();
         }
         if (Gym.containsClient(person)) {
-            gym.addActions(DuplicateClientException.getMsg());
+            //gym.addActions();
+            gym.addErrors("Error: The client is already registered");
             throw new DuplicateClientException();
         }
 
@@ -49,6 +51,7 @@ public class Secretary extends Person {
 
     public void unregisterClient(Client client) throws ClientNotRegisteredException {
         if (!gym.getClients().contains(client)) {
+            gym.addErrors("Error: Registration is required before attempting to unregister");
             throw new ClientNotRegisteredException("unregister");
         } else {
             gym.getClients().remove(client);
@@ -81,20 +84,24 @@ public class Secretary extends Person {
 
     }
 
-    public void registerClientToLesson(Client client, Session session) throws DuplicateClientException {
+    public void registerClientToLesson(Client client, Session session) throws DuplicateClientException, ClientNotRegisteredException {
         if (client == null) {
             throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         }
         if (session == null) {
             gym.addActions("Failed registration: gym.management.Session is not in the future");
+
         }
         if (!gym.getClients().contains(client)) {
             throw new ClientNotRegisteredException("not in client list");
         }
-
+        if(session.participants.contains(client)){
+            throw new DuplicateClientException();
+        }
         int age = calculateAge(client.getBirthday());
         if (session.getForumType() == ForumType.Seniors && age < 65) {
             gym.addActions("Failed registration: gym.customers.Client doesn't meet the age requirements for this session (Seniors)");
+
             //throw new InvalidAgeException();
         }
         //if gender not equal to forum type
@@ -102,37 +109,46 @@ public class Secretary extends Person {
             try {
                 if (client.getGender() != session.getGender()) {
                     gym.addActions("Failed registration: gym.customers.Client's gender doesn't match the session's gender requirements");
+
                 }
             } catch (Exception e) {
                 System.out.println("No gender");
             }
         }
-        //price not equal balance
+
         if (client.getBalance() < session.getPrice()) {
             gym.addActions("Failed registration: gym.customers.Client doesn't have enough balance");
+
         }
 
         if (session.getCurrentParticipants() >= session.getMaxParticipants()) {
             gym.addActions("Failed registration: No available spots for session");
+
         }
-        if (!session.isRegistered(client)) {
+
             session.addParticipant(client);
             gym.addBalance(session.getPrice());
             client.subBalance(session.getPrice());
             gym.addActions("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + session.getPrice());
-        } else {
-            gym.addActions("Failed registration: gym.customers.Client is already registered to this session");
-            throw new DuplicateClientException();
-        }
+
+//        else {
+//            gym.addActions("Failed registration: gym.customers.Client is already registered to this session");
+//            throw new DuplicateClientException();
+//        }
 
     }
 
     public void paySalaries() {
 
+        for (Instructor instructor : gym.getInstructors()) {
+            gym.subBalance(instructor.getSalaryPerHour() * instructor.getSessionCount());
+            instructor.addBalance(instructor.getSalaryPerHour() * instructor.getSessionCount());
+            //gym.addActions("Salaries have been paid to instructor: " + instructor.getName());
+        }
 
         gym.addActions("Salaries have been paid to all employees");
-
     }
+
 
     public void printActions() {
         for (String action : gym.actions){

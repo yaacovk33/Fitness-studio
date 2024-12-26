@@ -21,6 +21,7 @@ public class Gym implements Notifier {
     private List<Instructor> instructors = new ArrayList<>();
     private List<Session> sessions = new ArrayList<>();
     protected List<String> actions = new ArrayList<>();
+    protected List<String> errors = new ArrayList<>();
 
     private Gym() {
         this.name = "";
@@ -95,9 +96,6 @@ public class Gym implements Notifier {
     public void permissionsToSecretary() {
     }
 
-    public void getSubscriptions() {
-
-    }
 
     public void addClients(Client c) {
         clients.add(c);
@@ -107,20 +105,18 @@ public class Gym implements Notifier {
         clients.remove(c);
     }
 
-    //public void getInstructor() {
-  //  }
+
 
     public void addActions(String s) {
         actions.add(s);
+    }
+    public void addErrors(String s) {
+        errors.add(s);
     }
 
     public void getActions(List<String> actions) {
         this.actions = actions;
     }
-
-    //public void getSessions() {
-    //    this.sessions = sessions;
-   // }
 
 
     public void addSessions(Session newSession) {

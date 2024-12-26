@@ -89,13 +89,6 @@ public class Main {
         gymSecretary.registerClientToLesson(c5, s2);
         gymSecretary.registerClientToLesson(c5, s2);
 
-        /*try {
-            gymSecretary.registerClientToLesson(c5, s2);
-        } catch (DuplicateClientException e) {
-            System.out.println(e.getMessage());
-        }
-
-         */
 
         gymSecretary.registerClientToLesson(c1, s5);
         gymSecretary.registerClientToLesson(c2, s5);
