@@ -95,7 +95,7 @@ public class Secretary extends Person {
         if (!gym.getClients().contains(client)) {
             throw new ClientNotRegisteredException("not in client list");
         }
-        if(session.participants.contains(client)){
+        if(session.getParticipants().contains(client)){
             throw new DuplicateClientException();
         }
         int age = calculateAge(client.getBirthday());
