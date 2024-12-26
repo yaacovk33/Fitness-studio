@@ -12,16 +12,17 @@ public class Person {
     private Balance balance;
     private Gender gender;
     private String birthday;
-    private static int id = 1110;
+    private static int index = 1110;
+    private int id;
     private int age;
 
 
-    public Person(String name, Balance balance, Gender gender, String birthday) {
+    public Person(String name, int balance, Gender gender, String birthday) {
         this.name = name;
-        this.balance = balance;
+        this.balance = new Balance(balance);
         this.gender = gender;
         this.birthday = birthday;
-        this.id = id++;
+        this.id = index++;
     }
 
     public Person(Person person) {
@@ -51,13 +52,13 @@ public class Person {
         this.name = name;
     }
 
-    public Balance getBalance() {
+    public int getBalance() {
         return balance.getBalance();
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
+    //public void setBalance(int balance) {
+    //    this.balance = balance;
+    //}
 
     public Gender getGender() {
         return gender;
@@ -87,6 +88,13 @@ public class Person {
 
     public void setAge(int age){this.age = age;}
 
+    public void addBalance(int balance) {
+        this.balance.addBalance(balance);
+    }
+    public void subBalance(int balance) {
+        this.balance.subBalance(balance);
+    }
+
     protected int calculateAge(String birthday) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -105,14 +113,5 @@ public class Person {
         }
         return age;
     }
-
-   /* public void checkAge(int age) {
-        if (age < 18) {
-            throw new IllegalArgumentException("Age must be greater than 18");
-        }
-
-    }
-
-    */
 
 }

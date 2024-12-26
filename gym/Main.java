@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) throws InstructorNotQualifiedException, DuplicateClientException, InvalidAgeException, ClientNotRegisteredException {
+    public static void main(String[] args) throws Exception {
         Person p1 = new Person("David", 500, Gender.Male, "20-02-1978");
         Person p2 = new Person("Nofar", 1200, Gender.Female, "03-07-1998");
         Person p3 = new Person("Maayan", 200, Gender.Female, "21-12-2005");
@@ -29,6 +29,7 @@ public class Main {
         Gym gym = Gym.getInstance();
         gym.setName("CrossFit");
         gym.setSecretary(p1, 9000);
+
         Secretary gymSecretary = gym.getGymSecretary();
 
         Client c1 = gymSecretary.registerClient(p2);
@@ -88,6 +89,14 @@ public class Main {
         gymSecretary.registerClientToLesson(c5, s2);
         gymSecretary.registerClientToLesson(c5, s2);
 
+        /*try {
+            gymSecretary.registerClientToLesson(c5, s2);
+        } catch (DuplicateClientException e) {
+            System.out.println(e.getMessage());
+        }
+
+         */
+
         gymSecretary.registerClientToLesson(c1, s5);
         gymSecretary.registerClientToLesson(c2, s5);
         gymSecretary.registerClientToLesson(c3, s5);
@@ -109,6 +118,8 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+
+
         gymSecretary.notify(s4, "The instructor will be a few minutes late for the session");
         gymSecretary.notify("01-01-2025", "Heavy traffic reported around the gym today. Plan ahead to avoid missing your session!");
         gymSecretary.notify("Happy New Year to all our valued clients!");
@@ -117,7 +128,7 @@ public class Main {
 
         gym.setSecretary(p3,8000);
         Secretary newGymSecretary = gym.getGymSecretary();
-
+        // how to make the gym secretary to null
         try{
             gymSecretary.registerClientToLesson(c1, s1);
         }

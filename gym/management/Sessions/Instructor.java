@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Instructor extends Person {
     private int salaryPerHour;
     private ArrayList<SessionType> sessionType;
-    static ArrayList<Instructor> instructors;
+
     //private gym.Person person;
     private int id;
     private static int sessionCount;
@@ -19,7 +19,7 @@ public class Instructor extends Person {
         this.id = id;
         this.sessionCount= 0;
         //instructors= new ArrayList<>();
-        instructors.add(this);
+
     }
 
     public int getSalaryPerHour() {
@@ -38,13 +38,6 @@ public class Instructor extends Person {
         return sessionType;
     }
 
-    public static ArrayList<Instructor> getInstructors() {
-        return instructors;
-    }
-
-    public static void setInstructors(ArrayList<Instructor> instructorsList) {
-        instructors = instructorsList;
-    }
 
     public int addSessionCount(SessionType session) {
         if (sessionType.contains(session)) {
@@ -62,7 +55,12 @@ public class Instructor extends Person {
         return sessionCount;
     }
 
-
+    public boolean isQualified(SessionType sessionType) {
+        if (sessionType == null) {
+            return false;
+        }
+        return this.sessionType.contains(sessionType);
+    }
     public String toString() {
         return "Employees data:\n"+
                 "ID: " + id +
@@ -75,11 +73,5 @@ public class Instructor extends Person {
                 " | Salary per hour: " + salaryPerHour +
                 " | Certified classes: " + sessionType;
 
-    }
-    public boolean isQualified(SessionType2 sessionType) {
-        if (sessionType == null) {
-            return false;
-        }
-        return this.sessionType.contains(sessionType);
     }
 }

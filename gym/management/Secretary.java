@@ -15,7 +15,7 @@ public class Secretary extends Person {
     //private List<String> actions = new ArrayList<>();
 
 
-    public Secretary(String name, Balance balance, Gender gender, String birthday, int salary, Gym gym) {
+    public Secretary(String name, int balance, Gender gender, String birthday, int salary, Gym gym) {
         super(name, balance, gender, birthday);
         this.salary = salary;
         this.gym = gym;
@@ -68,31 +68,20 @@ public class Secretary extends Person {
         return instructor;
     }
 
-    public Session addSession(gym.management.Sessions.SessionType2 sessionType, String date, ForumType forumType, Instructor instructor) throws InstructorNotQualifiedException {
+    public Session addSession(gym.management.Sessions.SessionType sessionType, String date, ForumType forumType, Instructor instructor) throws Exception {
         if (!instructor.isQualified(sessionType)) {
             throw new InstructorNotQualifiedException();
         }
 
-        Session session = new Session(sessionType, date, forumType, instructor);
-        gym.getSessions().add(session);
-        gym.addActions("Created new session: " + sessionType + " on " + session.getDate() + " with instructor:  " + instructor);
+        Session newSession = SessionFactory.createSession(sessionType, date, forumType, instructor);
+        gym.getSessions().add(newSession);
+        gym.addActions("Created new session: " + sessionType + " on " + newSession.getDate() + " with instructor:  " + instructor);
         //System.out.println("Created new session: " + sessionType + " on " + session.getDate() + " with instructor:  " + instructor);
-        return session;
+        return newSession;
 
-        /*    try {
-            Session newSession = SessionFactory.createSession(sessionType, date, forumType, instructor);
-            gym.addSessions(newSession);
-
-            gym.addActions("Created new session: " + sessionType + " on " + getDate() + " with instructor:  " + instructor);
-            return newSession;
-        } catch (InstructorNotQualifiedException e) {
-            throw new InstructorNotQualifiedException();
-        }
-    }
-     */
     }
 
-    public void registerClientToLesson(Client client, Session session) throws InvalidAgeException, ClientNotRegisteredException, DuplicateClientException, NullPointerException {
+    public void registerClientToLesson(Client client, Session session) throws DuplicateClientException {
         if (client == null) {
             throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         }
@@ -102,26 +91,40 @@ public class Secretary extends Person {
         if (!gym.getClients().contains(client)) {
             throw new ClientNotRegisteredException("not in client list");
         }
+
         int age = calculateAge(client.getBirthday());
         if (session.getForumType() == ForumType.Seniors && age < 65) {
-           gym.addActions("Failed registration: gym.customers.Client doesn't meet the age requirements for this session (Seniors)");
+            gym.addActions("Failed registration: gym.customers.Client doesn't meet the age requirements for this session (Seniors)");
             //throw new InvalidAgeException();
         }
         //if gender not equal to forum type
-        if (session.getForumType() != ForumType.All && client.getGender() != session.getForumType() ) {
-            gym.addActions("Failed registration: gym.customers.Client's gender doesn't match the session's gender requirements");
+        if (session.getForumType() != ForumType.All && session.getForumType() != ForumType.Seniors) {
+            try {
+                if (client.getGender() != session.getGender()) {
+                    gym.addActions("Failed registration: gym.customers.Client's gender doesn't match the session's gender requirements");
+                }
+            } catch (Exception e) {
+                System.out.println("No gender");
+            }
         }
         //price not equal balance
-        if(Client.getBalance() < session.getType().getPrice()){
+        if (client.getBalance() < session.getPrice()) {
             gym.addActions("Failed registration: gym.customers.Client doesn't have enough balance");
         }
 
         if (session.getCurrentParticipants() >= session.getMaxParticipants()) {
             gym.addActions("Failed registration: No available spots for session");
         }
-        session.addParticipant(client);
-        gym.addActions("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + SessionType2.getPrice());
-        //System.out.println("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + SessionType2.getPrice());
+        if (!session.isRegistered(client)) {
+            session.addParticipant(client);
+            gym.addBalance(session.getPrice());
+            client.subBalance(session.getPrice());
+            gym.addActions("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + session.getPrice());
+        } else {
+            gym.addActions("Failed registration: gym.customers.Client is already registered to this session");
+            throw new DuplicateClientException();
+        }
+
     }
 
     public void paySalaries() {

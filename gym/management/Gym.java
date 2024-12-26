@@ -16,7 +16,7 @@ public class Gym implements Notifier {
     private String name;
     private static Gym instance;
     private Secretary gymSecretary;
-    private int balance;
+    private Balance balance;
     private static List<Client> clients = new ArrayList<>();
     private List<Instructor> instructors = new ArrayList<>();
     private List<Session> sessions = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Gym implements Notifier {
     private Gym() {
         this.name = "";
         this.gymSecretary = null;
-        this.balance = 0;
+        this.balance = new Balance(0);
     }
 
 
@@ -59,11 +59,14 @@ public class Gym implements Notifier {
     }
 
     public int getBalance() {
-        return balance;
+        return balance.getBalance();
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public void addBalance(int balance) {
+        this.balance.addBalance(balance);
+    }
+    public void subBalance(int balance) {
+        this.balance.subBalance(balance);
     }
 
     public List<Client> getClients() {
@@ -118,7 +121,6 @@ public class Gym implements Notifier {
     //public void getSessions() {
     //    this.sessions = sessions;
    // }
-
 
 
     public void addSessions(Session newSession) {
