@@ -7,7 +7,7 @@ public class DuplicateClientException extends Exception {
         super(DEFAULT_MESSAGE);
     }
 
-    public static String getMsg() {
-        return DEFAULT_MESSAGE;
-    }
+    //public static String getMsg() {
+    //    return DEFAULT_MESSAGE;
+   // }
 }
