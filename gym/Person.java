@@ -1,6 +1,7 @@
 package gym;
 
 import gym.customers.Gender;
+import gym.management.Balance;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,14 +9,14 @@ import java.time.format.DateTimeFormatter;
 public class Person {
 
     private String name;
-    private int balance;
+    private Balance balance;
     private Gender gender;
     private String birthday;
     private static int id = 1110;
     private int age;
 
 
-    public Person(String name, int balance, Gender gender, String birthday) {
+    public Person(String name, Balance balance, Gender gender, String birthday) {
         this.name = name;
         this.balance = balance;
         this.gender = gender;
@@ -50,8 +51,8 @@ public class Person {
         this.name = name;
     }
 
-    public int getBalance() {
-        return balance;
+    public Balance getBalance() {
+        return balance.getBalance();
     }
 
     public void setBalance(int balance) {

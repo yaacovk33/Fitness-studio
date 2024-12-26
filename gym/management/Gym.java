@@ -25,7 +25,7 @@ public class Gym implements Notifier {
     private Gym() {
         this.name = "";
         this.gymSecretary = null;
-        //this.balance = balance;
+        this.balance = 0;
     }
 
 
@@ -49,7 +49,7 @@ public class Gym implements Notifier {
             gymSecretary = null;
         }
         gymSecretary = new Secretary(person.getName(), person.getBalance(), person.getGender(), person.getBirthday(), salary, this);
-        balance -= salary;
+        //balance -= salary;
         actions.add("A new secretary has started working at the gym: " + gymSecretary.getName());
         //System.out.println("A new secretary has started working at the gym: " + gymSecretary.getName());
     }
@@ -93,7 +93,7 @@ public class Gym implements Notifier {
     }
 
     public void getSubscriptions() {
-        if (Secretary.)
+
     }
 
     public void addClients(Client c) {

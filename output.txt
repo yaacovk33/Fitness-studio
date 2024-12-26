@@ -17,9 +17,9 @@ Registered new client: Neta
 Registered new client: Rom
 Unregistered client: Maayan
 Registered new client: Maayan
-Hired new instructor: Shachar with salary per hour: 70
-Hired new instructor: Yuval with salary per hour: 90
-Hired new instructor: Noam with salary per hour: 50
+Hired new instructor: Shachar with salaryPerHour per hour: 70
+Hired new instructor: Yuval with salaryPerHour per hour: 90
+Hired new instructor: Noam with salaryPerHour per hour: 50
 Created new session: Pilates on 2025-01-23T10:00 with instructor: Yuval
 Created new session: MachinePilates on 2024-10-23T08:00 with instructor: Shachar
 Created new session: Pilates on 2025-01-25T09:30 with instructor: Noam

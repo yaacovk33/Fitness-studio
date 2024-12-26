@@ -7,7 +7,6 @@ import gym.Person;
 import gym.management.Sessions.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Secretary extends Person {
@@ -16,7 +15,7 @@ public class Secretary extends Person {
     //private List<String> actions = new ArrayList<>();
 
 
-    public Secretary(String name, int balance, Gender gender, String birthday, int salary, Gym gym) {
+    public Secretary(String name, Balance balance, Gender gender, String birthday, int salary, Gym gym) {
         super(name, balance, gender, birthday);
         this.salary = salary;
         this.gym = gym;
@@ -34,7 +33,7 @@ public class Secretary extends Person {
     public Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
         int age = calculateAge(person.getBirthday());
         if (age < 18) {
-            throw new InvalidAgeException(age);
+            throw new InvalidAgeException();
         }
         if (Gym.containsClient(person)) {
             gym.addActions(DuplicateClientException.getMsg());
@@ -64,8 +63,8 @@ public class Secretary extends Person {
         }
         Instructor instructor = new Instructor(person, salary, sessionType);
         gym.getInstructors().add(instructor);
-        gym.addActions("Hired new instructor: " + instructor.getName()+ "with salary per hour: " + instructor.getSalary());
-        //System.out.println("Hired new instructor: " + instructor.getName() + "with salary per hour: " + instructor.getSalary());
+        gym.addActions("Hired new instructor: " + instructor.getName()+ "with salary per hour: " + instructor.getSalaryPerHour());
+        //System.out.println("Hired new instructor: " + instructor.getName() + "with salary per hour: " + instructor.getSalaryPerHour());
         return instructor;
     }
 
@@ -100,20 +99,20 @@ public class Secretary extends Person {
         if (session == null) {
             gym.addActions("Failed registration: gym.management.Session is not in the future");
         }
-        int age = calculateAge(client.getBirthday());
-        if (age < 65 && session.getForumType() == ForumType.Seniors) {
-           gym.addActions("Failed registration: gym.customers.Client doesn't meet the age requirements for this session (Seniors)");
-            //throw new InvalidAgeException();
-        }
         if (!gym.getClients().contains(client)) {
             throw new ClientNotRegisteredException("not in client list");
         }
+        int age = calculateAge(client.getBirthday());
+        if (session.getForumType() == ForumType.Seniors && age < 65) {
+           gym.addActions("Failed registration: gym.customers.Client doesn't meet the age requirements for this session (Seniors)");
+            //throw new InvalidAgeException();
+        }
         //if gender not equal to forum type
-        if (session.getForumType() != client.getGender()) {
+        if (session.getForumType() != ForumType.All && client.getGender() != session.getForumType() ) {
             gym.addActions("Failed registration: gym.customers.Client's gender doesn't match the session's gender requirements");
         }
         //price not equal balance
-        if(Client.getBalance() < SessionType2.getPrice()){
+        if(Client.getBalance() < session.getType().getPrice()){
             gym.addActions("Failed registration: gym.customers.Client doesn't have enough balance");
         }
 
@@ -127,6 +126,7 @@ public class Secretary extends Person {
 
     public void paySalaries() {
 
+
         gym.addActions("Salaries have been paid to all employees");
 
     }
@@ -138,17 +138,20 @@ public class Secretary extends Person {
     }
 
     public void notify(Session session, String s) {
+        gym.updateSession(session, s);
         gym.addActions("A message was sent to everyone registered for session " + session + " on " +session.getDate()+ " : " + s);
         //System.out.println(session.getType() + " - " + s);
 
     }
 
     public void notify(String date, String s) {
+        gym.updateDate(date, s);
         gym.addActions("A message was sent to everyone registered for a session on " + date + " : ");
         //System.out.println(date + " - " + s);
     }
 
     public void notify(String s) {
+        gym.updateAll(s);
         gym.addActions("A message was sent to all gym clients: " + s);
         //System.out.println(s);
     }

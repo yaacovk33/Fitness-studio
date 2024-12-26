@@ -4,17 +4,17 @@ import gym.Person;
 import java.util.ArrayList;
 
 public class Instructor extends Person {
-    private int salary;
+    private int salaryPerHour;
     private ArrayList<SessionType> sessionType;
     static ArrayList<Instructor> instructors;
     //private gym.Person person;
     private int id;
-    private int sessionCount;
+    private static int sessionCount;
 
 
-    public Instructor(Person person, int salary, ArrayList<SessionType> sessionType) {
+    public Instructor(Person person, int salaryPerHour, ArrayList<SessionType> sessionType) {
         super(person);
-        this.salary = salary;
+        this.salaryPerHour = salaryPerHour;
         this.sessionType = sessionType;
         this.id = id;
         this.sessionCount= 0;
@@ -22,12 +22,12 @@ public class Instructor extends Person {
         instructors.add(this);
     }
 
-    public int getSalary() {
-        return salary;
+    public int getSalaryPerHour() {
+        return salaryPerHour;
     }
 
-    public void setSalary(int salary) {
-        this.salary = salary;
+    public void setSalaryPerHour(int salaryPerHour) {
+        this.salaryPerHour = salaryPerHour;
     }
 
     public void setSessionType(ArrayList<SessionType> sessionType) {
@@ -46,19 +46,19 @@ public class Instructor extends Person {
         instructors = instructorsList;
     }
 
-    public void addSessionCount(SessionType session) {
+    public int addSessionCount(SessionType session) {
         if (sessionType.contains(session)) {
         sessionCount++;
         } else {
             System.out.println("Instructor is not certified to instruct this session type: " + session);
         }
-
+        return sessionCount;
     }
     public void resetSessionCount() {
         sessionCount = 0;
     }
 
-    public int getSessionCount() {
+    public static int getSessionCount() {
         return sessionCount;
     }
 
@@ -72,7 +72,7 @@ public class Instructor extends Person {
                 " | Age: " + calculateAge(getBirthday()) +
                 " | Balance: " +getBalance() +
                 " | Role: Instructor" +
-                " | Salary per hour: " + salary+
+                " | Salary per hour: " + salaryPerHour +
                 " | Certified classes: " + sessionType;
 
     }
