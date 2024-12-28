@@ -7,8 +7,7 @@ public class Instructor extends Person {
     private int salaryPerHour;
     private ArrayList<SessionType> sessionType;
 
-    //private gym.Person person;
-    private int id;
+    //private int id;
     private static int sessionCount;
 
 
@@ -16,9 +15,8 @@ public class Instructor extends Person {
         super(person);
         this.salaryPerHour = salaryPerHour;
         this.sessionType = sessionType;
-        this.id = id;
+      // this.id = person.id;
         this.sessionCount= 0;
-        //instructors= new ArrayList<>();
 
     }
 
@@ -63,7 +61,7 @@ public class Instructor extends Person {
     }
     public String toString() {
         return "Employees data:\n"+
-                "ID: " + id +
+                "ID: " + getId() +
                 " | Name: " + getName() +
                 " | Gender: " + getGender() +
                 " | Birthday: " + getBirthday() +

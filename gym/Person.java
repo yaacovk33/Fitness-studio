@@ -12,7 +12,7 @@ public class Person {
     private Balance balance;
     private Gender gender;
     private String birthday;
-    private static int index = 1110;
+    private static int index = 1111;
     private int id;
     private int age;
 
@@ -31,7 +31,7 @@ public class Person {
         this.gender = person.gender;
         this.birthday = person.birthday;
         this.id = person.id;
-        this.age = age;
+        this.age = person.age;
     }
 
     public void setPerson(Person person) {
@@ -40,7 +40,7 @@ public class Person {
         this.gender = person.gender;
         this.birthday = person.birthday;
         this.id = person.id;
-        this.age = age;
+        this.age = person.age;
     }
 
 
@@ -108,7 +108,7 @@ public class Person {
 
 
         if (currentDate.getMonthValue() < birthDate.getMonthValue() ||
-                (currentDate.getMonthValue() == birthDate.getMonthValue() && currentDate.getDayOfMonth() < birthDate.getDayOfMonth())) {
+                currentDate.getMonthValue() == birthDate.getMonthValue() && currentDate.getDayOfMonth() < birthDate.getDayOfMonth()) {
             age--;
         }
         return age;

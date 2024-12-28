@@ -9,6 +9,9 @@ import gym.customers.Gender;
 import gym.management.Gym;
 import gym.management.Secretary;
 import gym.management.Sessions.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,7 +124,7 @@ public class Main {
 
         gym.setSecretary(p3,8000);
         Secretary newGymSecretary = gym.getGymSecretary();
-        // how to make the gym secretary to null
+
         try{
             gymSecretary.registerClientToLesson(c1, s1);
         }
@@ -134,7 +137,7 @@ public class Main {
 
         System.out.println("\n" + c1.getName() + " Notifications: " + c1.getNotifications());
 
-        System.out.println("\n---gym.management.Gym information---");
+        System.out.println("\n---Gym information---");
 
         System.out.print(gym);
     }

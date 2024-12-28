@@ -16,6 +16,7 @@ public class Gym implements Notifier {
     private String name;
     private static Gym instance;
     private Secretary gymSecretary;
+    private Secretary newGymSecretary;
     private Balance balance;
     private static List<Client> clients = new ArrayList<>();
     private List<Instructor> instructors = new ArrayList<>();
@@ -27,6 +28,7 @@ public class Gym implements Notifier {
         this.name = "";
         this.gymSecretary = null;
         this.balance = new Balance(0);
+
     }
 
 
@@ -47,12 +49,13 @@ public class Gym implements Notifier {
 
     public void setSecretary(Person person, int salary) {
         if (gymSecretary != null) {
-            gymSecretary = null;
+            gymSecretary.disable();
+            //gymSecretary = null;
         }
         gymSecretary = new Secretary(person.getName(), person.getBalance(), person.getGender(), person.getBirthday(), salary, this);
-        //balance -= salary;
+
         actions.add("A new secretary has started working at the gym: " + gymSecretary.getName());
-        //System.out.println("A new secretary has started working at the gym: " + gymSecretary.getName());
+
     }
 
     public Secretary getGymSecretary() {
@@ -160,7 +163,7 @@ public class Gym implements Notifier {
         return false;
     }
 
-    public void exportActionsToFile() {
+  /*  public void exportActionsToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
             writer.write("---Actions history---");
             writer.newLine();
@@ -194,12 +197,12 @@ public class Gym implements Notifier {
 
     }
 
-    public String toString() {
-        return "---gym.management.Gym Information---\n" +
-                "gym.management.Gym Name: " + name + "\n" +
-                "gym.management.Gym gym.management.Secretary: " + gymSecretary.toString() + "\n" +
-                "gym.management.Gym Balance: " + balance;
-    }
+   */
 
+    public String toString() {
+        return "Gym Name: " + name + "\n" +
+                "Gym Secretary: " + Gym.getInstance().gymSecretary.toString() + "\n" +
+                "Gym Balance: " + Gym.getInstance().getBalance();
+    }
 
 }

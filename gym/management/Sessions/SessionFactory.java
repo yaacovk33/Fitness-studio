@@ -1,18 +1,30 @@
 package gym.management.Sessions;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class SessionFactory {
+
+    public static String formatDate(String inputDateTime) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
+        LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
+        return dateTime.format(outputFormatter);
+    }
+
     public static Session createSession(SessionType type, String date, ForumType forum, Instructor instructor) throws Exception {
         if (type == SessionType.Pilates){
-            return new Session(type, date, forum, instructor, 30, 30);
+            return new Session(type, formatDate(date) , forum, instructor, 60, 30);
         }
         if (type == SessionType.MachinePilates){
-            return new Session(type, date, forum, instructor, 80, 10);
+            return new Session(type, formatDate(date), forum, instructor, 80, 10);
         }
         if (type == SessionType.Ninja){
-            return new Session(type, date, forum, instructor, 150, 5);
+            return new Session(type, formatDate(date), forum, instructor, 150, 5);
         }
         if (type == SessionType.ThaiBoxing){
-            return new Session(type, date, forum, instructor, 100, 20);
+            return new Session(type, formatDate(date), forum, instructor, 100, 20);
         }
         throw new Exception("Invalid Session Type");
     }

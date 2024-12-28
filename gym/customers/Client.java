@@ -15,7 +15,7 @@ public class Client extends Person {
 
 
     public String getNotifications() {
-        return "";
+        return "[" + String.join(", ", notifs) + "]";
 
     }
     public  void update(String msg){

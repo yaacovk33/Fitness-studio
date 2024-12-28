@@ -3,8 +3,11 @@ package gym.management.Sessions;
 import gym.Exception.DuplicateClientException;
 import gym.customers.Client;
 import gym.customers.Gender;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+
 
 public class Session {
     private String date;
@@ -37,15 +40,14 @@ public class Session {
         this.price = price;
 
     }
-    public Gender getGender() throws Exception {
+    public Gender getGender()  {
         if (ForumType.Male == forumType) {
             return Gender.Male;
         }
         if (ForumType.Female == forumType) {
             return Gender.Female;
-        }else{
-           throw new Exception("Invalid ForumType");
         }
+        return null;
     }
 
     public SessionType getType() {
@@ -97,11 +99,10 @@ public class Session {
         if(participants.contains(client)){
             return false;
         }
-        if (currentParticipants < maxParticipants) {
+        if (currentParticipants <= maxParticipants) {
             participants.add(client);
             currentParticipants++;
         } else {
-            System.out.println("Failed registration: No available spots for session");
             return false;
         }
         return true;
