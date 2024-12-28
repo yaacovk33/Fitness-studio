@@ -9,7 +9,7 @@ public class Instructor extends Person {
     private ArrayList<SessionType> sessionType;
 
 
-    private static int sessionCount;
+    private  int sessionCount;
 
 
     public Instructor(Person person, int salaryPerHour, ArrayList<SessionType> sessionType) {
@@ -49,7 +49,7 @@ public class Instructor extends Person {
         sessionCount = 0;
     }
 
-    public static int getSessionCount() {
+    public int getSessionCount() {
         return sessionCount;
     }
 

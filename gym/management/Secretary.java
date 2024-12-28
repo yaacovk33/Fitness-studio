@@ -18,8 +18,8 @@ public class Secretary extends Person {
     private boolean disabled = false;
 
 
-    public Secretary(String name, int balance, Gender gender, String birthday, int salary, Gym gym) {
-        super(name, balance, gender, birthday);
+    public Secretary(Person person, int salary, Gym gym) {
+        super(person);
         this.salary = salary;
         this.gym = gym;
     }
@@ -79,8 +79,6 @@ public class Secretary extends Person {
         return instructor;
     }
 
-
-
     public Session addSession(gym.management.Sessions.SessionType sessionType, String date, ForumType forumType, Instructor instructor) throws Exception {
         if (!instructor.isQualified(sessionType)) {
             throw new InstructorNotQualifiedException();
@@ -88,7 +86,7 @@ public class Secretary extends Person {
 
         Session newSession = SessionFactory.createSession(sessionType, date, forumType, instructor);
         gym.getSessions().add(newSession);
-        Instructor.addSessionCount(newSession);
+        instructor.addSessionCount(newSession.getType());
         gym.addActions("Created new session: " + sessionType + " on " + newSession.getDate() + " with instructor: " + instructor.getName());
         return newSession;
 
@@ -151,10 +149,11 @@ public class Secretary extends Person {
     public void paySalaries() {
 
         for (Instructor instructor : gym.getInstructors()) {
-            gym.subBalance(instructor.getSalaryPerHour() * instructor.getSessionCount());
-            instructor.addBalance(instructor.getSalaryPerHour() * instructor.getSessionCount());
-            resetcount
-
+            int sess = instructor.getSessionCount();
+            int salaryFinal = instructor.getSalaryPerHour() * sess;
+            gym.subBalance(salaryFinal);
+            instructor.addBalance(salaryFinal);
+           instructor.resetSessionCount();
         }
         if (gym.getGymSecretary() != null) {
             gym.subBalance(salary);
@@ -164,8 +163,6 @@ public class Secretary extends Person {
         gym.addActions("Salaries have been paid to all employees");
 
     }
-
-
 
     public void printActions() {
         for (String action : gym.actions) {

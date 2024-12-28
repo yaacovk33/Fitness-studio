@@ -51,7 +51,7 @@ public class Gym implements Notifier {
             gymSecretary.disable();
             //gymSecretary = null;
         }
-        gymSecretary = new Secretary(person.getName(), person.getBalance(), person.getGender(), person.getBirthday(), salary, this);
+        gymSecretary = new Secretary(person, salary, this);
 
         //actions.add("A new secretary has started working at the gym: " + gymSecretary.getName());
         addActions("A new secretary has started working at the gym: " + gymSecretary.getName());
@@ -196,7 +196,8 @@ public class Gym implements Notifier {
         }
         StringBuilder resultClients = new StringBuilder();
         for (Client client : clients) {
-            resultClients.append(client.toString());
+            String current = client.toString();
+            resultClients.append(current);
         }
 
         return "Gym Name: " + name + "\n" +

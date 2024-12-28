@@ -1,11 +1,11 @@
 package gym.management.Sessions;
 
-import gym.Exception.DuplicateClientException;
+
 import gym.customers.Client;
 import gym.customers.Gender;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 
@@ -138,10 +138,15 @@ public class Session {
         return participants;
     }
 
+    public String formatDateToString(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return date.format(formatter);  // Convert LocalDateTime to string in the desired format
+    }
+
     @Override
     public String toString() {
         return "Session Type: " + getType() +
-                " | Date: " + date+
+                " | Date: " + formatDateToString(date) +
                 " | Forum: " + getForumType() +
                 " | Instructor: " + (instructor != null ? instructor.getName() : "None") +
                 " | Participants: " + currentParticipants + "/" + maxParticipants +

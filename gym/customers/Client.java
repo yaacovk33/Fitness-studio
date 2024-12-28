@@ -22,7 +22,7 @@ public class Client extends Person {
         notifs.add(msg);
 
     }
-    public String tostring() {
+    public String toString() {
 
         return "ID: " + getId() +
                 " | Name: " + getName() +
