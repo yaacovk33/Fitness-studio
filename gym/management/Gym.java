@@ -22,7 +22,6 @@ public class Gym implements Notifier {
     private List<Instructor> instructors = new ArrayList<>();
     private List<Session> sessions = new ArrayList<>();
     protected List<String> actions = new ArrayList<>();
-    protected List<String> errors = new ArrayList<>();
 
     private Gym() {
         this.name = "";
@@ -54,7 +53,8 @@ public class Gym implements Notifier {
         }
         gymSecretary = new Secretary(person.getName(), person.getBalance(), person.getGender(), person.getBirthday(), salary, this);
 
-        actions.add("A new secretary has started working at the gym: " + gymSecretary.getName());
+        //actions.add("A new secretary has started working at the gym: " + gymSecretary.getName());
+        addActions("A new secretary has started working at the gym: " + gymSecretary.getName());
 
     }
 
@@ -96,32 +96,18 @@ public class Gym implements Notifier {
         this.sessions = sessions;
     }
 
-    public void permissionsToSecretary() {
-    }
-
-
     public void addClients(Client c) {
         clients.add(c);
     }
-
     public void removeClients(Client c) {
         clients.remove(c);
     }
-
-
-
     public void addActions(String s) {
         actions.add(s);
     }
-    public void addErrors(String s) {
-        errors.add(s);
-    }
-
     public void getActions(List<String> actions) {
         this.actions = actions;
     }
-
-
     public void addSessions(Session newSession) {
         sessions.add(newSession);
     }
@@ -200,9 +186,29 @@ public class Gym implements Notifier {
    */
 
     public String toString() {
+        StringBuilder resultInstructor = new StringBuilder();
+        for (Instructor instructor : instructors) {
+            resultInstructor.append(instructor.toString());
+        }
+        StringBuilder resultSession = new StringBuilder();
+        for (Session session : sessions) {
+            resultSession.append(session.toString());
+        }
+        StringBuilder resultClients = new StringBuilder();
+        for (Client client : clients) {
+            resultClients.append(client.toString());
+        }
+
         return "Gym Name: " + name + "\n" +
                 "Gym Secretary: " + Gym.getInstance().gymSecretary.toString() + "\n" +
-                "Gym Balance: " + Gym.getInstance().getBalance();
+                "Gym Balance: " + Gym.getInstance().getBalance() +"\n" + "\n" +
+                "Clients Data: " + "\n" +
+                resultClients.toString() + "\n" + "\n" +
+                "Employees Data: " + "\n" +
+                resultInstructor.toString()+
+                gymSecretary.toString()+"\n" + "\n" +
+                "Sessions Data:"+ "\n" +
+                resultSession.toString();
     }
 
 }

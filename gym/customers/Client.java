@@ -23,12 +23,13 @@ public class Client extends Person {
 
     }
     public String tostring() {
-        return "Clients Data:\n" +
-                "ID: " + getId() +
+
+        return "ID: " + getId() +
                 " | Name: " + getName() +
                 " | Gender: " + getGender() +
                 " | Birthday: " + getBirthday() +
-                " | Age: " +
-                " | Balance: " + getBalance();
+                " | Age: " + calculateAge(getBirthday()) +
+                " | Balance: " + getBalance()+
+                "\n";
     }
 }

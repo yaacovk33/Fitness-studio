@@ -2,12 +2,13 @@ package gym.management.Sessions;
 import gym.Person;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Instructor extends Person {
     private int salaryPerHour;
     private ArrayList<SessionType> sessionType;
 
-    //private int id;
+
     private static int sessionCount;
 
 
@@ -15,7 +16,6 @@ public class Instructor extends Person {
         super(person);
         this.salaryPerHour = salaryPerHour;
         this.sessionType = sessionType;
-      // this.id = person.id;
         this.sessionCount= 0;
 
     }
@@ -24,13 +24,13 @@ public class Instructor extends Person {
         return salaryPerHour;
     }
 
-    public void setSalaryPerHour(int salaryPerHour) {
-        this.salaryPerHour = salaryPerHour;
-    }
-
-    public void setSessionType(ArrayList<SessionType> sessionType) {
-        this.sessionType = sessionType;
-    }
+//    public void setSalaryPerHour(int salaryPerHour) {
+//        this.salaryPerHour = salaryPerHour;
+//    }
+//
+//    public void setSessionType(ArrayList<SessionType> sessionType) {
+//        this.sessionType = sessionType;
+//    }
 
     public ArrayList<SessionType> getSessionType() {
         return sessionType;
@@ -60,8 +60,11 @@ public class Instructor extends Person {
         return this.sessionType.contains(sessionType);
     }
     public String toString() {
-        return "Employees data:\n"+
-                "ID: " + getId() +
+        List<String> sessionNames = new ArrayList<>();
+        for (SessionType session : sessionType) {
+            sessionNames.add(session.toString());  // Assuming SessionType has a meaningful toString()
+        }
+        return "ID: " + getId() +
                 " | Name: " + getName() +
                 " | Gender: " + getGender() +
                 " | Birthday: " + getBirthday() +
@@ -69,7 +72,8 @@ public class Instructor extends Person {
                 " | Balance: " +getBalance() +
                 " | Role: Instructor" +
                 " | Salary per hour: " + salaryPerHour +
-                " | Certified classes: " + sessionType;
+                " | Certified classes: " +  String.join(", ", sessionNames) +
+                "\n";
 
     }
 }

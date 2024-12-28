@@ -5,13 +5,14 @@ import java.time.format.DateTimeFormatter;
 
 public class SessionFactory {
 
-    public static String formatDate(String inputDateTime) {
+    public static LocalDateTime formatDate(String inputDateTime) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        //DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
-        LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
-        return dateTime.format(outputFormatter);
+        //LocalDateTime dateTimeOutput = LocalDateTime.parse(dateTime, outputFormatter);
+        return LocalDateTime.parse(inputDateTime, inputFormatter);
     }
+
 
     public static Session createSession(SessionType type, String date, ForumType forum, Instructor instructor) throws Exception {
         if (type == SessionType.Pilates){

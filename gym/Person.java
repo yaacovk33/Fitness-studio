@@ -56,9 +56,6 @@ public class Person {
         return balance.getBalance();
     }
 
-    //public void setBalance(int balance) {
-    //    this.balance = balance;
-    //}
 
     public Gender getGender() {
         return gender;

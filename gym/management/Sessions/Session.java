@@ -3,6 +3,7 @@ package gym.management.Sessions;
 import gym.Exception.DuplicateClientException;
 import gym.customers.Client;
 import gym.customers.Gender;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 
 public class Session {
-    private String date;
+    private LocalDateTime date;
     private SessionType type;
     private Instructor instructor;
     private ForumType forumType;
@@ -19,28 +20,30 @@ public class Session {
     private int maxParticipants;
     private int price;
 
-    public Session(SessionType type, String date,ForumType forumType ,Instructor instructor){
+    public Session(SessionType type, LocalDateTime date, ForumType forumType, Instructor instructor) {
         this.type = type;
         this.date = date;
         this.instructor = instructor;
-        this.forumType=forumType;
+        this.forumType = forumType;
         this.currentParticipants = 0;
         this.maxParticipants = maxParticipants;
         this.participants = new ArrayList<>();
 
     }
-    public Session(SessionType type, String date,ForumType forumType ,Instructor instructor, int price, int maxParticipants){
+
+    public Session(SessionType type, LocalDateTime date, ForumType forumType, Instructor instructor, int price, int maxParticipants) {
         this.type = type;
         this.date = date;
         this.instructor = instructor;
-        this.forumType=forumType;
+        this.forumType = forumType;
         this.currentParticipants = 0;
         this.maxParticipants = maxParticipants;
         this.participants = new ArrayList<>();
         this.price = price;
 
     }
-    public Gender getGender()  {
+
+    public Gender getGender() {
         if (ForumType.Male == forumType) {
             return Gender.Male;
         }
@@ -58,12 +61,12 @@ public class Session {
         this.type = type;
     }
 
-    public String getDate(){
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(String date){
-         this.date = date;
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     public ForumType getForumType() {
@@ -71,7 +74,7 @@ public class Session {
     }
 
     public void setForumType(ForumType forumType) {
-         this.forumType = forumType;
+        this.forumType = forumType;
     }
 
 
@@ -96,7 +99,7 @@ public class Session {
     }
 
     public boolean addParticipant(Client client) {
-        if(participants.contains(client)){
+        if (participants.contains(client)) {
             return false;
         }
         if (currentParticipants <= maxParticipants) {
@@ -107,7 +110,8 @@ public class Session {
         }
         return true;
     }
-    public boolean isRegistered(Client client){
+
+    public boolean isRegistered(Client client) {
         return participants.contains(client);
     }
 
@@ -119,12 +123,13 @@ public class Session {
         }
         return false;
     }
-    public int getPrice(){
+
+    public int getPrice() {
         return price;
     }
 
-    public void update(String msg){
-        for (Client c:participants){
+    public void update(String msg) {
+        for (Client c : participants) {
             c.update(msg);
         }
     }
@@ -135,11 +140,11 @@ public class Session {
 
     @Override
     public String toString() {
-        return "gym.management.Sessions Data:\n" +
-                "gym.management.Sessions.Session Type: " + type +
-                " | Date: " + date +
-                " | Forum: " + forumType +
+        return "Session Type: " + getType() +
+                " | Date: " + date+
+                " | Forum: " + getForumType() +
                 " | Instructor: " + (instructor != null ? instructor.getName() : "None") +
-                " | Participants: " + currentParticipants + "/" + maxParticipants;
+                " | Participants: " + currentParticipants + "/" + maxParticipants +
+                "\n";
     }
 }
