@@ -206,11 +206,11 @@ public class Gym implements Notifier {
         }
 
         return "Gym Name: " + name + "\n" +
-                "Gym Secretary: " + Gym.getInstance().gymSecretary.toString() + "\n" +
+                "Gym Secretary:" + Gym.getInstance().gymSecretary.toString() + "\n" +
                 "Gym Balance: " + Gym.getInstance().getBalance() +"\n" + "\n" +
-                "Clients Data: " +
+                "Clients Data:" +
                 resultClients.toString() + "\n" + "\n" +
-                "Employees Data: " + "\n" +
+                "Employees Data:" + "\n" +
                 resultInstructor.toString()+
                 gymSecretary.toString()+"\n" + "\n" +
                 "Sessions Data:" +
