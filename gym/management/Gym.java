@@ -9,6 +9,8 @@ import gym.management.Sessions.Session;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,7 +117,6 @@ public class Gym implements Notifier {
     @Override
     public void updateAll(String msg) {
         for (Client c : clients) {
-
             c.update(msg);
         }
     }
@@ -129,11 +130,15 @@ public class Gym implements Notifier {
             }
         }
     }
+    public String formatDateToString(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return date.format(formatter);
+    }
 
     @Override
     public void updateDate(String day, String msg) {
         for (Session s : sessions) {
-            if (s.getDate().equals(day)) {
+            if (formatDateToString(s.getDate()).equals(day)) {
                 s.update(msg);
                 return;
             }

@@ -5,11 +5,12 @@ import gym.customers.Client;
 import gym.customers.Gender;
 import gym.Person;
 import gym.management.Sessions.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-
 
 
 public class Secretary extends Person {
@@ -31,6 +32,7 @@ public class Secretary extends Person {
     public void setSalary(int salary) {
         this.salary = salary;
     }
+
     public void disable() {
         this.disabled = true;
     }
@@ -65,7 +67,7 @@ public class Secretary extends Person {
             throw new ClientNotRegisteredException("unregister");
         } else {
             gym.getClients().remove(client);
-            gym.addActions("Unregistered new client: " + client.getName());
+            gym.addActions("Unregistered client: " + client.getName());
         }
     }
 
@@ -100,13 +102,13 @@ public class Secretary extends Person {
         }
         if (session == null) {
             gym.addActions("Failed registration: Session is not in the future");
-            canRegistered=false;
+            canRegistered = false;
         }
-        if (session.getDate().isBefore(LocalDateTime.now())){
+        if (session.getDate().isBefore(LocalDateTime.now())) {
             gym.addActions("Failed registration: Session is not in the future");
-            canRegistered=false;
+            canRegistered = false;
         }
-        if (this.isDisabled() ) {
+        if (this.isDisabled()) {
             throw new NullPointerException("Error: Former secretaries are not permitted to perform actions");
         }
         if (!gym.getClients().contains(client)) {
@@ -115,13 +117,13 @@ public class Secretary extends Person {
         int age = calculateAge(client.getBirthday());
         if (session.getForumType() == ForumType.Seniors && age < 65) {
             gym.addActions("Failed registration: Client doesn't meet the age requirements for this session (Seniors)");
-            canRegistered=false;
+            canRegistered = false;
         }
-        if ((session.getForumType() != ForumType.All && session.getForumType() != ForumType.Seniors))  {
-                if (client.getGender() != session.getGender()) {
-                    gym.addActions("Failed registration: Client's gender doesn't match the session's gender requirements");
-                    canRegistered=false;
-                }
+        if ((session.getForumType() != ForumType.All && session.getForumType() != ForumType.Seniors)) {
+            if (client.getGender() != session.getGender()) {
+                gym.addActions("Failed registration: Client's gender doesn't match the session's gender requirements");
+                canRegistered = false;
+            }
         }
         if (session.getParticipants().contains(client)) {
             throw new DuplicateClientException("lesson");
@@ -129,11 +131,11 @@ public class Secretary extends Person {
 
         if (client.getBalance() < session.getPrice()) {
             gym.addActions("Failed registration: Client doesn't have enough balance");
-            canRegistered=false;
+            canRegistered = false;
         }
         if (session.getCurrentParticipants() >= session.getMaxParticipants()) {
             gym.addActions("Failed registration: No available spots for session");
-            canRegistered=false;
+            canRegistered = false;
         }
         if (!canRegistered) {
             return;
@@ -152,7 +154,7 @@ public class Secretary extends Person {
             int salaryFinal = instructor.getSalaryPerHour() * sess;
             gym.subBalance(salaryFinal);
             instructor.addBalance(salaryFinal);
-           instructor.resetSessionCount();
+            instructor.resetSessionCount();
         }
         if (gym.getGymSecretary() != null) {
             gym.subBalance(salary);
@@ -175,23 +177,35 @@ public class Secretary extends Person {
 
     }
 
-    public void notify(String date, String s) {
-        gym.updateDate(date, s);
-        gym.addActions("A message was sent to everyone registered for a session on " + date + " : " + s);
+    public static String formatDate(String input) {
+        // Define the input formatter
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        // Define the output formatter
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Parse the input string into a LocalDate object
+        LocalDate date = LocalDate.parse(input, inputFormatter);
+        // Format the date into the desired format
+        return date.format(outputFormatter);
     }
 
-    public void notify(String s) {
-        gym.updateAll(s);
-        gym.addActions("A message was sent to all gym clients: " + s);
+        public void notify (String date, String s){
+            gym.updateDate(date, s);
+            gym.addActions("A message was sent to everyone registered for a session on " + formatDate(date) + " : " + s);
+        }
+
+        public void notify (String s){
+            gym.updateAll(s);
+            gym.addActions("A message was sent to all gym clients: " + s);
+        }
+        public String toString () {
+            return "ID: " + getId() +
+                    " | Name: " + getName() +
+                    " | Gender: " + getGender() +
+                    " | Birthday: " + getBirthday() +
+                    " | Age: " + calculateAge(getBirthday()) +
+                    " | Balance: " + getBalance() +
+                    " | Role: Secretary" +
+                    " | Salary per Month: " + salary;
+        }
     }
-    public String toString() {
-        return "ID: " + getId() +
-                " | Name: " + getName() +
-                " | Gender: " + getGender() +
-                " | Birthday: " + getBirthday() +
-                " | Age: " + calculateAge(getBirthday()) +
-                " | Balance: " +getBalance() +
-                " | Role: Secretary" +
-                " | Salary per Month: " +  salary;
-    }
-}

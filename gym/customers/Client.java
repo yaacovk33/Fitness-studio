@@ -20,7 +20,6 @@ public class Client extends Person {
     }
     public  void update(String msg){
         notifs.add(msg);
-
     }
     public String toString() {
 

@@ -71,9 +71,8 @@ public class Instructor extends Person {
                 " | Age: " + calculateAge(getBirthday()) +
                 " | Balance: " +getBalance() +
                 " | Role: Instructor" +
-                " | Salary per hour: " + salaryPerHour +
-                " | Certified classes: " +  String.join(", ", sessionNames) +
+                " | Salary per Hour: " + salaryPerHour +
+                " | Certified Classes: " +  String.join(", ", sessionNames) +
                 "\n";
-
     }
 }
