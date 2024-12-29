@@ -1,16 +1,13 @@
-package gym;
-
 import gym.Exception.ClientNotRegisteredException;
 import gym.Exception.DuplicateClientException;
 import gym.Exception.InstructorNotQualifiedException;
 import gym.Exception.InvalidAgeException;
+import gym.Person;
 import gym.customers.Client;
 import gym.customers.Gender;
 import gym.management.Gym;
 import gym.management.Secretary;
 import gym.management.Sessions.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 import java.util.ArrayList;

@@ -145,11 +145,10 @@ public class Session {
 
     @Override
     public String toString() {
-        return "Session Type: " + getType() +
+        return "\n"+ "Session Type: " + getType() +
                 " | Date: " + formatDateToString(date) +
                 " | Forum: " + getForumType() +
                 " | Instructor: " + (instructor != null ? instructor.getName() : "None") +
-                " | Participants: " + currentParticipants + "/" + maxParticipants +
-                "\n";
+                " | Participants: " + currentParticipants + "/" + maxParticipants;
     }
 }

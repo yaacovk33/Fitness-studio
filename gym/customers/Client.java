@@ -24,12 +24,11 @@ public class Client extends Person {
     }
     public String toString() {
 
-        return "ID: " + getId() +
+        return "\n" +"ID: " + getId() +
                 " | Name: " + getName() +
                 " | Gender: " + getGender() +
                 " | Birthday: " + getBirthday() +
                 " | Age: " + calculateAge(getBirthday()) +
-                " | Balance: " + getBalance()+
-                "\n";
+                " | Balance: " + getBalance();
     }
 }
