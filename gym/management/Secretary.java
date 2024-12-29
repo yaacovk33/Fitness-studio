@@ -12,40 +12,66 @@ import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Secretary in the gym management system, responsible for managing clients, sessions, and instructors.
+ */
 
 public class Secretary extends Person {
     private int salary;
     private Gym gym;
     private boolean disabled = false;
 
+    /**
+     * Constructor for creating a Secretary instance.
+     * @param person The person object containing basic details.
+     * @param salary The salary of the secretary.
+     * @param gym The gym that the secretary works for.
+     */
 
     public Secretary(Person person, int salary, Gym gym) {
         super(person);
         this.salary = salary;
         this.gym = gym;
     }
+    /**
+     * Gets the salary of the secretary.
+     * @return The salary.
+     */
 
     public int getSalary() {
         return salary;
     }
+    /**
+     * Sets the salary of the secretary.
+     * @param salary The new salary.
+     */
 
     public void setSalary(int salary) {
         this.salary = salary;
     }
+    /**
+     * Disables the secretary, preventing further actions.
+     */
 
     public void disable() {
         this.disabled = true;
     }
+    /**
+     * Checks if the secretary is disabled.
+     * @return True if disabled, false otherwise.
+     */
 
     public boolean isDisabled() {
         return disabled;
     }
+    /**
+     * Registers a new client to the gym.
+     * @param person The person object containing client details.
+     * @return The registered client.
+     * @throws InvalidAgeException If the client's age is below the minimum required.
+     * @throws DuplicateClientException If the client is already registered.
+     */
 
-    public void performAction(String action) {
-        if (disabled) {
-            throw new IllegalStateException("This secretary is no longer active.");
-        }
-    }
 
     public Client registerClient(Person person) throws InvalidAgeException, DuplicateClientException {
         int age = calculateAge(person.getBirthday());
@@ -61,6 +87,11 @@ public class Secretary extends Person {
         gym.addActions("Registered new client: " + client.getName());
         return client;
     }
+    /**
+     * Unregisters a client from the gym.
+     * @param client The client to be unregistered.
+     * @throws ClientNotRegisteredException If the client is not registered.
+     */
 
     public void unregisterClient(Client client) throws ClientNotRegisteredException {
         if (!gym.getClients().contains(client)) {
@@ -70,6 +101,14 @@ public class Secretary extends Person {
             gym.addActions("Unregistered client: " + client.getName());
         }
     }
+    /**
+     * Hires a new instructor.
+     * @param person The person object containing instructor details.
+     * @param salary The salary of the instructor.
+     * @param sessionType The session types the instructor is qualified for.
+     * @return The hired instructor.
+     * @throws InstructorNotQualifiedException If the instructor lacks qualifications.
+     */
 
     public Instructor hireInstructor(Person person, int salary, ArrayList<SessionType> sessionType) throws InstructorNotQualifiedException {
         if (sessionType == null || sessionType.isEmpty()) {
@@ -80,6 +119,15 @@ public class Secretary extends Person {
         gym.addActions("Hired new instructor: " + instructor.getName() + " with salary per hour: " + instructor.getSalaryPerHour());
         return instructor;
     }
+    /**
+     * Adds a new session to the gym.
+     * @param sessionType The type of session.
+     * @param date The date of the session.
+     * @param forumType The forum type of the session.
+     * @param instructor The instructor conducting the session.
+     * @return The newly created session.
+     * @throws Exception If an error occurs during session creation.
+     */
 
     public Session addSession(gym.management.Sessions.SessionType sessionType, String date, ForumType forumType, Instructor instructor) throws Exception {
         if (!instructor.isQualified(sessionType)) {
@@ -93,6 +141,13 @@ public class Secretary extends Person {
         return newSession;
 
     }
+    /**
+     * Registers a client to a specific session.
+     * @param client The client to be registered.
+     * @param session The session to register the client for.
+     * @throws DuplicateClientException If the client is already registered for the session.
+     * @throws ClientNotRegisteredException If the client is not registered in the gym.
+     */
 
     public void registerClientToLesson(Client client, Session session) throws DuplicateClientException, ClientNotRegisteredException {
         boolean canRegistered = true;
@@ -147,6 +202,9 @@ public class Secretary extends Person {
         gym.addActions("Registered client: " + client.getName() + " to session: " + session.getType() + " on " + session.getDate() + " for price: " + session.getPrice());
 
     }
+    /**
+     * Pays salaries to all employees.
+     */
 
     public void paySalaries() {
         for (Instructor instructor : gym.getInstructors()) {
@@ -164,48 +222,60 @@ public class Secretary extends Person {
         gym.addActions("Salaries have been paid to all employees");
 
     }
-
+    /**
+     * Prints all actions taken by the gym.
+     */
     public void printActions() {
         for (String action : gym.actions) {
             System.out.println(action);
         }
     }
-
+    /**
+     * Sends a notification message to all participants of a session.
+     * @param session The session to notify
+     * @param s The message to send
+     */
     public void notify(Session session, String s) {
         gym.updateSession(session, s);
         gym.addActions("A message was sent to everyone registered for session " + session.getType() + " on " + session.getDate() + " : " + s);
-
     }
-
+    // Overloaded notify methods to handle different formats of notifications
     public static String formatDate(String input) {
-        // Define the input formatter
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        // Define the output formatter
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        // Parse the input string into a LocalDate object
         LocalDate date = LocalDate.parse(input, inputFormatter);
-        // Format the date into the desired format
         return date.format(outputFormatter);
     }
-
-        public void notify (String date, String s){
-            gym.updateDate(date, s);
-            gym.addActions("A message was sent to everyone registered for a session on " + formatDate(date) + " : " + s);
-        }
-
-        public void notify (String s){
-            gym.updateAll(s);
-            gym.addActions("A message was sent to all gym clients: " + s);
-        }
-        public String toString () {
-            return "ID: " + getId() +
-                    " | Name: " + getName() +
-                    " | Gender: " + getGender() +
-                    " | Birthday: " + getBirthday() +
-                    " | Age: " + calculateAge(getBirthday()) +
-                    " | Balance: " + getBalance() +
-                    " | Role: Secretary" +
-                    " | Salary per Month: " + salary;
-        }
+    /**
+     * Sends a notification message to all participants of sessions in a specific day.
+     * @param date The date to notify
+     * @param s The message to send
+     */
+    public void notify(String date, String s) {
+        gym.updateDate(date, s);
+        gym.addActions("A message was sent to everyone registered for a session on " + formatDate(date) + " : " + s);
     }
+    /**
+     * Sends a notification message to all the clients.
+     * @param s The message to send
+     */
+    public void notify(String s) {
+        gym.updateAll(s);
+        gym.addActions("A message was sent to all gym clients: " + s);
+    }
+    /**
+     * Returns a string representation of the secretary's details.
+     * @return The secretary's details as a string
+     */
+    public String toString() {
+        return "ID: " + getId() +
+                " | Name: " + getName() +
+                " | Gender: " + getGender() +
+                " | Birthday: " + getBirthday() +
+                " | Age: " + calculateAge(getBirthday()) +
+                " | Balance: " + getBalance() +
+                " | Role: Secretary" +
+                " | Salary per Month: " + salary;
+    }
+}
