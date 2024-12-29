@@ -147,7 +147,6 @@ public class Secretary extends Person {
     }
 
     public void paySalaries() {
-
         for (Instructor instructor : gym.getInstructors()) {
             int sess = instructor.getSessionCount();
             int salaryFinal = instructor.getSalaryPerHour() * sess;
@@ -157,7 +156,7 @@ public class Secretary extends Person {
         }
         if (gym.getGymSecretary() != null) {
             gym.subBalance(salary);
-            gym.addBalance(salary);
+            gym.getGymSecretary().addBalance(salary);
 
         }
         gym.addActions("Salaries have been paid to all employees");
